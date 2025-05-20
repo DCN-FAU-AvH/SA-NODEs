@@ -7,15 +7,12 @@ from math import sin, cos, tanh, sqrt, cosh
 from scipy.integrate import odeint
 
 def calculate_error_ODE(u_real, u_NN):
-    # u_real and u_NN have the same shape [100, 64, 2]
-    # error should be [100, 64], only axis=2 take square of the error
     error_x = u_real[:, :, 0] - u_NN[:, :, 0]
     error_y = u_real[:, :, 1] - u_NN[:, :, 1]
-    error = np.sqrt(error_x ** 2 + error_y ** 2)  # shape [100, 64]
+    error = np.sqrt(error_x ** 2 + error_y ** 2) 
 
-    # error_mean = error.mean(axis=1)  # shape [100]
     error_linfty = error.mean(axis=1).max() 
-    error_T = error.mean(axis=1)[-1]  # shape [100]
+    error_T = error.mean(axis=1)[-1]  
 
     return error, error_linfty, error_T
 
