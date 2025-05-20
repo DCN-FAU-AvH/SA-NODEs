@@ -44,7 +44,7 @@ def init_cond(XY, transport_type, mode):
     # XY: [N,2], already on the correct device
     if transport_type == 'nonautonomous':
         if mode == 'train':
-            u0 = torch.full((XY.shape[0], 1), 0.5, device=XY.device)
+            u_init = torch.full((XY.shape[0], 1), 0.5, device=XY.device)
         else:  # 'test'
             sigma = 2.0
             exponent = -torch.sum(XY**2, dim=1) / (sigma**2)
