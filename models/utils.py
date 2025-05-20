@@ -28,7 +28,7 @@ def calculate_error_transport(t, anode, dt, transport_type, mode):
         l = 5
 
     # Build the spatial grid
-    N_x = 101
+    N_x = 201
     x = np.linspace(-l, l, N_x)
     y = np.linspace(-l, l, N_x)
     X, Y = np.meshgrid(x, y)
