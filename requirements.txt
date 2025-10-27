@@ -2,5 +2,5 @@ matplotlib==3.8.4
 numpy==2.2.4
 rich==14.0.0
 scipy==1.15.2
-torch==2.2.2
+torch>=2.8.0
 torchdiffeq==0.2.3
