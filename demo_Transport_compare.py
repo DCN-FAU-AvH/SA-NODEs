@@ -78,7 +78,7 @@ def main():
     # OPTIMIZER
     # =============================================================================
     optimizer_sanode = torch.optim.Adam(sanode.parameters(), lr=learning_rate)
-    scheduler = lr_scheduler.StepLR(optimizer_sanode, step_size=100000, gamma=0.8)
+    scheduler = lr_scheduler.StepLR(optimizer_sanode, step_size=10000, gamma=0.8)
     # =============================================================================
     # TRAINING
     # =============================================================================
@@ -104,7 +104,7 @@ def main():
     
 
 if __name__ == '__main__':
-    for num_epochs in [20000]:
+    for num_epochs in [50000]:
         for hidden_dim in [200]:
             main()
     

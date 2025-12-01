@@ -98,7 +98,7 @@ class Trainer():
         
         # for transport equations
         if u_target.shape[2] > 2:
-            loss += 10000*self.loss_func(traj[:,:,2], u_target[:,:,2])
+            loss += 1000*self.loss_func(traj[:,:,2], u_target[:,:,2])
         
         self.optimizer.zero_grad()
         loss.backward()

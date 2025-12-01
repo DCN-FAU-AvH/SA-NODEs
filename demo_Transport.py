@@ -19,7 +19,7 @@ def main():
     # DATA
     # =============================================================================
     transport_type='Doswell'      # 'nonautonomous' or 'Doswell'
-    datasets = Transport_Dataset(transport_type, mode='train')
+    datasets = Transport_Dataset(transport_type, mode='train', M_space=5)
     t, u = datasets[:]
     # separate the data into u_train and u_test
     u_train = u.to(device)
@@ -49,7 +49,7 @@ def main():
     # OPTIMIZER
     # =============================================================================
     optimizer_anode = torch.optim.Adam(anode.parameters(), lr=learning_rate)
-    scheduler = lr_scheduler.StepLR(optimizer_anode, step_size=100000, gamma=0.8)
+    scheduler = lr_scheduler.StepLR(optimizer_anode, step_size=10000, gamma=0.8)
     # =============================================================================
     # TRAINING
     # =============================================================================
@@ -73,7 +73,7 @@ def main():
     u_train = u_train.detach().cpu().numpy()
     
     # calculate the error
-    error_train = calculate_error_transport(u_train, u_train_NN)
+    t_step, error_train = calculate_error_transport(t, anode, dt, transport_type, mode='train')
 
 
     # load test data
@@ -90,15 +90,15 @@ def main():
     u_test = u_test.detach().cpu().numpy()
     
     # calculate the error
-    error_test = calculate_error_transport(u_test, u_test_NN)
+    t_step, error_test = calculate_error_transport(t, anode, dt, transport_type, mode='test')
 
     # plot the results
-    plot_transport_error(t, error_train, error_test)
+    plot_transport_error(t_step, error_train, error_test)
     plot_transport(t, anode, dt, transport_type)
     
 
 if __name__ == '__main__':
-    for num_epochs in [20000]:
+    for num_epochs in [50000]:
         for hidden_dim in [200]:
             main()
     

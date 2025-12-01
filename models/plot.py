@@ -211,6 +211,13 @@ def plot_transport(t, anode, dt, transport_type):
 
         # --- SA-NODE solution: backward then forward ---
         with torch.no_grad():
+            # Backward integration on the SA-NODE model
+            u0_bwd = torch.cat([XY_tensor, torch.zeros(XY_tensor.shape[0], 1)], dim=1).to(anode.device)
+            sol_bwd_nn = anode.integrate(u0_bwd.to(anode.device), backward=0, eval_times=t_bwd.to(anode.device))
+            u_back = sol_bwd_nn[-1]
+            # Forward integration from mapped points
+            XY_mapped = u_back[:, :2]
+            u0_fwd = init_cond(XY_mapped, transport_type)
             sol_fwd_nn = anode.integrate(u0_fwd.to(anode.device), backward=0, eval_times=t_fwd.to(anode.device))
             nn_img = sol_fwd_nn[-1, :, 2].reshape(N_x, N_x).cpu().numpy()
 
@@ -319,7 +326,7 @@ def plot_transport_compare(t, node, sanode, dt, transport_type):
         l, cmap, vmin, vmax = 5, 'jet', -1, 1
 
     # Build the spatial grid
-    N_x = 201
+    N_x = 51
     x = np.linspace(-l, l, N_x)
     y = np.linspace(-l, l, N_x)
     X, Y = np.meshgrid(x, y)

@@ -100,6 +100,13 @@ def calculate_error_transport(t, anode, dt, transport_type, mode):
 
         # --- SA-NODE solution: forward only ---
         with torch.no_grad():
+            u0_bwd = torch.cat([XY, torch.zeros(XY.shape[0],1, device=device)], dim=1)
+            sol_nn = anode.integrate(
+                u0_bwd, backward=0, eval_times=t_bwd
+            )
+            u_back = sol_nn[-1]
+
+            u0_fwd = init_cond(u_back[:, :2], transport_type, mode).to(device)
             sol_nn = anode.integrate(
                 u0_fwd, backward=0, eval_times=t_fwd
             )
