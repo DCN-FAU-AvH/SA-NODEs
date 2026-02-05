@@ -1,7 +1,7 @@
 # Universal approximation of dynamical systems by semi-autonomous neural odes and applications
 
 **SA-NODE** (Semi-Autonomous Neural ODE) is a research project that explores Neural Ordinary Differential Equations (Neural ODEs) with a semi-autonomous architecture. The goal is to accurately approximate the behavior of dynamical systems, including standard ODE systems and transport equations using neural networks. This repository provides a PyTorch implementation of SA-NODE and compares its performance against vanilla Neural ODEs on various simulation tasks. 
-The source code is for the paper: [Z. Li, K. Liu, L. Liverani, E. Zuazua. Universal Approximation of Dynamical Systems by Semiautonomous Neural ODEs and Applications. SIAM Journal on Numerical Analysis, 64(1), 2026](https://doi.org/10.1137/24M167969)
+The source code is for the paper: [Z. Li, K. Liu, L. Liverani, E. Zuazua. Universal Approximation of Dynamical Systems by Semiautonomous Neural ODEs and Applications. SIAM Journal on Numerical Analysis, 64(1), 2026](https://epubs.siam.org/doi/10.1137/24M1679690)
 
 ## Installation
 
